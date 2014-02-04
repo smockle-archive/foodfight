@@ -6,12 +6,6 @@ Characters
 ===
 Our characters are mostly chefs or cooks of some sort that have something vested in competing.
 
-- [Wyllis](#Wyllis/Willow)
-- [Arnald](#Arnald)
-- [Simon](#Simon)
-- [Shen](#Shen)
-- [Merra](#Merra)
-
 ### Wyllis/Willow
 **Likes**: Activity, winning, dogs, arts and crafts, milkshakes.
 
