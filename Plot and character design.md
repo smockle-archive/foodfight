@@ -1,10 +1,16 @@
 Plot
 ===
-The initial pieces of plot revolve around Willow and Arnald getting into cooking and starting to compete against one another. This scales up into a local cooking competition, and very quickly Willow becomes starry-eyed and passionate about the whole thing. Her first taste for blood drives her into making a goal to win the Silver Spoon competition, an annual and national test of chefery and personal spice. (This is likely all we really need from a zoomed-out, general perspective.) Is she taking things too far?
+The initial pieces of plot revolve around Willow and Arnald getting into cooking and starting to compete against one another. This scales up into a local cooking competition, and very quickly Willow becomes starry-eyed and passionate about the whole thing. Her first taste for blood drives her into making a goal to win the Silver Spoon competition, an annual and international test of chefery and personal spice. (This is likely all we really need from a zoomed-out, general perspective.) She gets caught up in a fervor of victory, and eventually the question becomes: Is she taking things too far? (bleh this is bad make it better jake come on)
 
 Characters
 ===
 Our characters are mostly chefs or cooks of some sort that have something vested in competing.
+
+- [Wyllis/Willow](#wylliswillow)
+- [Arnald](#arnald)
+- [Simon](#simon)
+- [Shen](#shen)
+- [Merra](#merra)
 
 ### Wyllis/Willow
 **Likes**: Activity, winning, dogs, arts and crafts, milkshakes.
