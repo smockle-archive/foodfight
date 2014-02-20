@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(GridElementScript))]
 public class UnitScript : MonoBehaviour {
 
     // maybe change these back to standard scope instead of public? 
@@ -8,8 +9,6 @@ public class UnitScript : MonoBehaviour {
     public int health;
     public int attack;
     public int move;
-    public int x;
-    public int y;
 
     public UnitScript defender;
 
@@ -19,12 +18,12 @@ public class UnitScript : MonoBehaviour {
     {
         if(canAttack(defender)) defender.health -= this.attack;
     }
-    void Move (int x, int y)
+    void Move (int x, int y) //move to grid position (x,y)
     {
-        if (canMove && Mathf.Abs(this.x - x) + Mathf.Abs(this.y - y) <= move)
+        if (canMove && Mathf.Abs(this.GetComponent<GridElementScript>().x - x) + Mathf.Abs(this.GetComponent<GridElementScript>().y - y) <= move)
         {
-            this.x = x;
-            this.y = y;
+            this.GetComponent<GridElementScript>().x = x;
+            this.GetComponent<GridElementScript>().y = y;
         }
     }
 
