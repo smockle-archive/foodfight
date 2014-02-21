@@ -30,6 +30,7 @@ public class UnitScript : MonoBehaviour {
     bool canAttack(UnitScript defender)
     {
         //TODO: FILL THIS IN
+        if (defender == null) return false;
         return true; 
     }
 
@@ -37,21 +38,26 @@ public class UnitScript : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0))
         {
-            float x = Input.mousePosition.x;
-            float y = Input.mousePosition.y;
-
-            //Debug.Log("We're at least firing this damn thing! x: " + x + ", y: " + y);
-            //Debug.Log(this.name + " is at x: " + Camera.main.WorldToScreenPoint(this.transform.position).x + ", y: " + Camera.main.WorldToScreenPoint(this.transform.position).y);
-
+            CursorScript c = GameObject.FindObjectOfType<CursorScript>();
+            int x = c.x;
+            int y = c.y;
+            
             if (
-                (Camera.main.WorldToScreenPoint(this.transform.position).x <= x) && (Camera.main.WorldToScreenPoint(this.transform.position).x + 200 >= x) //we're within the x-bounds of the unit
+                (this.GetComponent<GridElementScript>().x == x) //we're within the x-bounds of the unit
                 &&
-                (Camera.main.WorldToScreenPoint(this.transform.position).y <= y) && (Camera.main.WorldToScreenPoint(this.transform.position).y + 200 >= y) //we're within the y-bounds of the unit
+                (this.GetComponent<GridElementScript>().y == y) //we're within the y-bounds of the unit
             )
             {
-                this.Attack(this.defender);
-                Debug.Log(this.defender.name + " took " + this.attack + " damage! Its health is now " + this.defender.health + ".");
+                if (canAttack(this.defender))
+                {
+                    this.Attack(this.defender);
+                    Debug.Log(this.defender.name + " took " + this.attack + " damage! Its health is now " + this.defender.health + ".");
+                }
             }
+        }
+        if (this.health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
