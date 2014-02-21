@@ -1,6 +1,6 @@
 Mechanics
 ===
-*According to the ruleset posted [here][http://codeshare.io/FoodFightCards].*
+According to the ruleset posted [here][http://codeshare.io/FoodFightCards].
 
 - 20 card deck (exact) (singleton)
 - non cycling mana, one per turn, max 5
