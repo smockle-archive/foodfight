@@ -10,6 +10,8 @@ public class Grid : MonoBehaviour {
 
     CursorScript cursor;
 
+    // GridElementScript[][] mapClone; // so we don't have to foreach and search through all the GameObjects every time, as that is costly. use if noticeable lag occurs.
+
 	// Use this for initialization
 	void Start () {
         foreach (var e in GameObject.FindObjectsOfType<GridElementScript>())
@@ -54,7 +56,7 @@ public class Grid : MonoBehaviour {
 	}
 
 
-    bool isLegalBoardLocation(int x, int y)
+    public bool isLegalBoardLocation(int x, int y)
     {
         return (x >= 0 && x < width) && (y >= 0 && y < height);
     }

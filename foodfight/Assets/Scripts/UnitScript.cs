@@ -8,11 +8,20 @@ public class UnitScript : MonoBehaviour {
     // don't probably need to see these attributes once the game works...
     public int health;
     public int attack;
+
     public int move;
+    public int attackr; //attack range (move range not included. default is 1.)
 
     public UnitScript defender;
 
     bool canMove = true;
+    bool isSelected = false;
+
+    void Start()
+    {
+        move = 2;
+        attackr = 1;
+    }
 
     void Attack (UnitScript defender)
     {
@@ -36,28 +45,14 @@ public class UnitScript : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            CursorScript c = GameObject.FindObjectOfType<CursorScript>();
-            int x = c.x;
-            int y = c.y;
-            
-            if (
-                (this.GetComponent<GridElementScript>().x == x) //we're within the x-bounds of the unit
-                &&
-                (this.GetComponent<GridElementScript>().y == y) //we're within the y-bounds of the unit
-            )
-            {
-                if (canAttack(this.defender))
-                {
-                    this.Attack(this.defender);
-                    Debug.Log(this.defender.name + " took " + this.attack + " damage! Its health is now " + this.defender.health + ".");
-                }
-            }
-        }
+        
         if (this.health <= 0)
         {
             Destroy(this.gameObject);
         }
     }
+    //void OnMouseUp()
+    //{
+    //    Debug.Log("Mouse up");
+    //}
 }
