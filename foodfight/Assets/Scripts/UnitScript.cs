@@ -17,6 +17,14 @@ public class UnitScript : MonoBehaviour {
     bool canMove = true;
     bool isSelected = false;
 
+    public int range
+    {
+        get
+        {
+            return move + attackr;
+        }
+    }
+
     void Start()
     {
         move = 2;
@@ -51,6 +59,7 @@ public class UnitScript : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
     //void OnMouseUp()
     //{
     //    Debug.Log("Mouse up");

@@ -9,10 +9,12 @@ public class CursorScript : GridElementScript {
 
     UnitScript selected;
     bool existRangeObjects = false;
+    Grid grid;
 
     void Start()
     {
         highlightSquare.tag = "Range";
+        grid = this.gameObject.transform.parent.gameObject.GetComponent<Grid>();
     }
 
 	// Update is called once per frame
@@ -20,10 +22,14 @@ public class CursorScript : GridElementScript {
         if (Input.GetMouseButtonUp(0))
         {
             SelectUnit();
-        }
 
-        if (selected != null && !existRangeObjects) DrawRanges();
-        if (selected == null && existRangeObjects) DestroyRanges();
+            if (selected != null)
+            {
+                DestroyRanges();
+                DrawRanges();
+            }
+            else DestroyRanges();
+        }
 	}
 
     /// <summary>
@@ -31,19 +37,17 @@ public class CursorScript : GridElementScript {
     /// </summary>
     void SelectUnit()
     {
-        if (this.gameObject.transform.parent.gameObject.GetComponent<Grid>().isLegalBoardLocation(this.x, this.y))
+        if (grid.isLegalBoardLocation(this.x, this.y))
         {
-            if (selected == null)
+            selected = null;
+            //FIXME:
+            //If the game runs slowly, we should fix this. I mostly just wanted to get something working first, but I know the solution (check Grid.cs).
+            foreach (UnitScript u in FindObjectsOfType<UnitScript>())
             {
-                //FIXME:
-                //If the game runs slowly, we should fix this. I mostly just wanted to get something working first, but I know the solution (check Grid.cs).
-                foreach (UnitScript u in FindObjectsOfType<UnitScript>())
+                GridElementScript g = u.gameObject.GetComponent<GridElementScript>();
+                if (g.x == this.x && g.y == this.y)
                 {
-                    GridElementScript g = u.gameObject.GetComponent<GridElementScript>();
-                    if (g.x == this.x && g.y == this.y)
-                    {
-                        selected = u;
-                    }
+                    selected = u;
                 }
             }
             //if (canAttack(this.defender))
@@ -60,33 +64,54 @@ public class CursorScript : GridElementScript {
     /// </summary>
     void DrawRanges()
     {
-        Debug.Log("Creating ranges for " + selected.gameObject.name + "...");
 
         existRangeObjects = true;
         GridElementScript g = selected.gameObject.GetComponent<GridElementScript>();
 
-        Debug.Log("Coordinates of " + selected.gameObject.name + ": (" + g.x + "," + g.y + ")");
         DrawAttackRange(g);
         DrawMoveRange(g);
     }
 
-    void DrawMoveRange(GridElementScript g)
+    void DrawMoveRange(GridElementScript e)
     {
+        int usedMoves = 0;
 
-    }
+        for (int y = e.y - selected.move; y <= e.y + selected.move; y++)
+        {
+            if (!grid.isLegalBoardLocation(0, y)) continue;
 
-    void DrawAttackRange(GridElementScript g)
-    {
-        highlightSquare.renderer.material.color = attackRangeColor;
-        for(int y = g.y - (selected.move + selected.attackr); y < g.y + (selected.move + selected.attackr); y++){
-            if (!this.gameObject.transform.parent.gameObject.GetComponent<Grid>().isLegalBoardLocation(0, y)) continue;
-            Debug.Log(y);
-            for(int x = g.x - (selected.move + selected.attackr - Mathf.Abs(y)); x <= g.x + (selected.move + selected.attackr - Mathf.Abs(y)); x++){
-                Debug.Log("(" + x + "," + y + ")");
-                if (!this.gameObject.transform.parent.gameObject.GetComponent<Grid>().isLegalBoardLocation(x, y)) continue;
+            usedMoves = Mathf.Abs(e.y - y);
+
+            for (int x = e.x - (selected.move - usedMoves); x <= e.x + (selected.move - usedMoves); x++)
+            {
+                if (!grid.isLegalBoardLocation(x, y)) continue;
+
                 highlightSquare.GetComponent<GridElementScript>().x = x;
                 highlightSquare.GetComponent<GridElementScript>().y = y;
-                Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 5), this.gameObject.transform.parent.gameObject.GetComponent<Grid>()), new Quaternion());
+                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 5), grid), new Quaternion());
+                clone.renderer.material.color = moveRangeColor;
+                clone.transform.parent = GameObject.Find("AttackRange").gameObject.transform;
+            }
+        }
+    }
+
+    void DrawAttackRange(GridElementScript e)
+    {
+        int usedMoves = 0;
+
+        for(int y = e.y - selected.range; y <= e.y + selected.range; y++){
+            if (!grid.isLegalBoardLocation(0, y)) continue;
+
+            usedMoves = Mathf.Abs(e.y - y);
+
+            for(int x = e.x - (selected.range - usedMoves); x <= e.x + (selected.range - usedMoves); x++){
+                if (!grid.isLegalBoardLocation(x, y)) continue;
+
+                highlightSquare.GetComponent<GridElementScript>().x = x;
+                highlightSquare.GetComponent<GridElementScript>().y = y;
+                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 5), grid), new Quaternion());
+                clone.renderer.material.color = attackRangeColor;
+                clone.transform.parent = GameObject.Find("AttackRange").gameObject.transform;
             }
         }
     }
