@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CursorScript : GridElementScript {
 
@@ -10,18 +11,40 @@ public class CursorScript : GridElementScript {
     UnitScript selected;
     bool existRangeObjects = false;
     Grid grid;
+    GridElementScript[] moveRange;
+    GridElementScript clicked;
+    TurnManager tm;
 
     void Start()
     {
         highlightSquare.tag = "Range";
         grid = this.gameObject.transform.parent.gameObject.GetComponent<Grid>();
+        tm = GameObject.FindObjectOfType<TurnManager>();
     }
 
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonUp(0))
         {
-            SelectUnit();
+            moveRange = GameObject.Find("MoveRange").GetComponentsInChildren<GridElementScript>();
+            clicked = null;
+
+            foreach (GridElementScript ge in moveRange)
+            {
+                if (ge.x == this.x && ge.y == this.y)
+                {
+                    clicked = ge;
+                }
+            }
+
+            if (selected != null
+                && clicked != null) // eventually, we'll also want to check if we're allowed to move this unit (e.g. it's moved already or is on the wrong team)
+            {
+                selected.Move(clicked.x, clicked.y);
+                grid.Render(selected.gameObject.GetComponent<GridElementScript>());
+                selected = null;
+            }
+            else SelectUnit();
 
             if (selected != null)
             {
@@ -44,27 +67,30 @@ public class CursorScript : GridElementScript {
             //If the game runs slowly, we should fix this. I mostly just wanted to get something working first, but I know the solution (check Grid.cs).
             foreach (UnitScript u in FindObjectsOfType<UnitScript>())
             {
+                if (!u.canMove) continue;
+
                 GridElementScript g = u.gameObject.GetComponent<GridElementScript>();
-                if (g.x == this.x && g.y == this.y)
+                if  (
+                        g.x == this.x && g.y == this.y &&
+                        (
+                            (g.gameObject.tag == "Unit - Player" && tm.turn == TurnManager.Turn.PLAYER)
+                            ||
+                            (g.gameObject.tag == "Unit - Enemy" && tm.turn == TurnManager.Turn.ENEMY)
+                        )
+                    )
                 {
                     selected = u;
                 }
             }
-            //if (canAttack(this.defender))
-            //{
-            //    this.Attack(this.defender);
-            //    Debug.Log(this.defender.name + " took " + this.attack + " damage! Its health is now " + this.defender.health + ".");
-            //}
         }
         else selected = null;
     }
 
     /// <summary>
-    /// Draw the selected unit's move range, as well as attack range outside of that.
+    /// Draws the selected unit's move range, as well as attack range outside of that.
     /// </summary>
     void DrawRanges()
     {
-
         existRangeObjects = true;
         GridElementScript g = selected.gameObject.GetComponent<GridElementScript>();
 
@@ -75,6 +101,8 @@ public class CursorScript : GridElementScript {
     void DrawMoveRange(GridElementScript e)
     {
         int usedMoves = 0;
+        bool skip = false;
+        GridElementScript[] gridElements = GameObject.FindObjectsOfType<GridElementScript>();
 
         for (int y = e.y - selected.move; y <= e.y + selected.move; y++)
         {
@@ -84,13 +112,22 @@ public class CursorScript : GridElementScript {
 
             for (int x = e.x - (selected.move - usedMoves); x <= e.x + (selected.move - usedMoves); x++)
             {
+                skip = false;
+                foreach (GridElementScript ge in gridElements)
+                {
+                    if (!ge.CompareTag("Range") && ge.x == x && ge.y == y)
+                    {
+                        skip = true;
+                    }
+                }
+                if (skip) continue;
                 if (!grid.isLegalBoardLocation(x, y)) continue;
-
+                
                 highlightSquare.GetComponent<GridElementScript>().x = x;
                 highlightSquare.GetComponent<GridElementScript>().y = y;
-                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 5), grid), new Quaternion());
+                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 10), grid), new Quaternion());
                 clone.renderer.material.color = moveRangeColor;
-                clone.transform.parent = GameObject.Find("AttackRange").gameObject.transform;
+                clone.transform.parent = GameObject.Find("MoveRange").gameObject.transform;
             }
         }
     }
@@ -109,16 +146,18 @@ public class CursorScript : GridElementScript {
 
                 highlightSquare.GetComponent<GridElementScript>().x = x;
                 highlightSquare.GetComponent<GridElementScript>().y = y;
-                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 5), grid), new Quaternion());
+                Transform clone = (Transform)Instantiate(highlightSquare, Camera.main.GridToWorldPoint(new Vector3(x, y, 10), grid), new Quaternion());
                 clone.renderer.material.color = attackRangeColor;
                 clone.transform.parent = GameObject.Find("AttackRange").gameObject.transform;
             }
         }
     }
 
+    /// <summary>
+    /// Destroys any graphical objects that describe the attack range or move range of any unit.
+    /// </summary>
     void DestroyRanges()
     {
-        Debug.Log("Destroying ranges...");
         existRangeObjects = false;
         foreach (var r in GameObject.FindGameObjectsWithTag("Range"))
         {

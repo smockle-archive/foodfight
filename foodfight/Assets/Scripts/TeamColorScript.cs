@@ -32,5 +32,10 @@ public class TeamColorScript : MonoBehaviour {
             unitScript.gameObject.renderer.material.color = color;
         }
 	}
+
+    public void Render()
+    {
+        Start();
+    }
 	
 }

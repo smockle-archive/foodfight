@@ -55,6 +55,33 @@ public class Grid : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Basically does the Start() method again, but is public and more semantically named.
+    /// </summary>
+    public void Render()
+    {
+        foreach (var e in GameObject.FindObjectsOfType<GridElementScript>())
+        {
+            if (!isLegalBoardLocation(e.x, e.y))
+            {
+                Debug.Log("ERROR: Illegal board position (" + e.x + "," + e.y + ") of unit " + e.gameObject.name);
+                e.x = 0;
+                e.y = 0;
+            }
+
+            e.gameObject.transform.position = Camera.main.GridToWorldPoint(new Vector3(e.x, e.y, e.gameObject.transform.parent.position.z), this);
+        }
+    }
+    public void Render(GridElementScript e)
+    {
+        if (!isLegalBoardLocation(e.x, e.y))
+        {
+            Debug.Log("ERROR: Illegal board position (" + e.x + "," + e.y + ") of unit " + e.gameObject.name);
+            e.x = 0;
+            e.y = 0;
+        }
+        e.gameObject.transform.position = Camera.main.GridToWorldPoint(new Vector3(e.x, e.y, e.gameObject.transform.parent.position.z), this);
+    }
 
     public bool isLegalBoardLocation(int x, int y)
     {

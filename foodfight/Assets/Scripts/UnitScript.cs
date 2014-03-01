@@ -14,7 +14,7 @@ public class UnitScript : MonoBehaviour {
 
     public UnitScript defender;
 
-    bool canMove = true;
+    public bool canMove = true;
     bool isSelected = false;
 
     public int range
@@ -35,12 +35,16 @@ public class UnitScript : MonoBehaviour {
     {
         if(canAttack(defender)) defender.health -= this.attack;
     }
-    void Move (int x, int y) //move to grid position (x,y)
+    public void Move (int x, int y) //move to grid position (x,y)
     {
         if (canMove && Mathf.Abs(this.GetComponent<GridElementScript>().x - x) + Mathf.Abs(this.GetComponent<GridElementScript>().y - y) <= move)
         {
             this.GetComponent<GridElementScript>().x = x;
             this.GetComponent<GridElementScript>().y = y;
+            canMove = false;
+            // FIXME: this may need to be handled by the turn manager
+            this.gameObject.renderer.material.color = Color.gray;
+            GameObject.FindObjectOfType<TurnManager>().Handle();
         }
     }
 
