@@ -15,15 +15,6 @@ public class UnitScript : MonoBehaviour {
     public UnitScript defender;
 
     public bool canMove = true;
-    bool isSelected = false;
-
-    public int range
-    {
-        get
-        {
-            return move + attackr;
-        }
-    }
 
     void Start()
     {
@@ -31,7 +22,7 @@ public class UnitScript : MonoBehaviour {
         attackr = 1;
     }
 
-    void Attack (UnitScript defender)
+    public void Attack (UnitScript defender)
     {
         if(canAttack(defender)) defender.health -= this.attack;
     }
@@ -42,7 +33,7 @@ public class UnitScript : MonoBehaviour {
             this.GetComponent<GridElementScript>().x = x;
             this.GetComponent<GridElementScript>().y = y;
             canMove = false;
-            // FIXME: this may need to be handled by the turn manager
+            // FIXME: coloring may also need to be handled by the turn manager
             this.gameObject.renderer.material.color = Color.gray;
             GameObject.FindObjectOfType<TurnManager>().Handle();
         }
@@ -52,6 +43,7 @@ public class UnitScript : MonoBehaviour {
     {
         //TODO: FILL THIS IN
         if (defender == null) return false;
+        if (this.CompareTag(defender.tag)) return false;
         return true; 
     }
 

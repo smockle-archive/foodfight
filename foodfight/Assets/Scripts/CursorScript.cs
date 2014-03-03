@@ -12,7 +12,9 @@ public class CursorScript : GridElementScript {
     bool existRangeObjects = false;
     Grid grid;
     GridElementScript[] moveRange;
+    GridElementScript[] attackRange;
     GridElementScript clicked;
+    GridElementScript attacked;
     TurnManager tm;
 
     void Start()
@@ -27,7 +29,10 @@ public class CursorScript : GridElementScript {
         if (Input.GetMouseButtonUp(0))
         {
             moveRange = GameObject.Find("MoveRange").GetComponentsInChildren<GridElementScript>();
+            attackRange = GameObject.Find("AttackRange").GetComponentsInChildren<GridElementScript>();
+
             clicked = null;
+            attacked = null;
 
             foreach (GridElementScript ge in moveRange)
             {
@@ -37,21 +42,49 @@ public class CursorScript : GridElementScript {
                 }
             }
 
+            foreach (GridElementScript ge in attackRange)
+            {
+                if (ge.x == this.x && ge.y == this.y)
+                {
+                    foreach (UnitScript u in GameObject.FindObjectsOfType<UnitScript>())
+                    {
+                        GridElementScript g = u.gameObject.GetComponent<GridElementScript>();
+                        if (g.x == this.x && g.y == this.y)
+                        {
+                            attacked = g;
+                        }
+                    }
+                }
+            }
+
             if (selected != null
+                && attacked != null)
+            {
+                selected.Attack(attacked.gameObject.GetComponent<UnitScript>());
+                DestroyRanges();
+                selected = null;
+            }
+
+            else if (selected != null
                 && clicked != null) // eventually, we'll also want to check if we're allowed to move this unit (e.g. it's moved already or is on the wrong team)
             {
                 selected.Move(clicked.x, clicked.y);
                 grid.Render(selected.gameObject.GetComponent<GridElementScript>());
-                selected = null;
-            }
-            else SelectUnit();
-
-            if (selected != null)
-            {
                 DestroyRanges();
-                DrawRanges();
+                DrawAttackRange(selected.gameObject.GetComponent<GridElementScript>());
             }
-            else DestroyRanges();
+            else
+            {
+                SelectUnit();
+
+                if (selected != null)
+                {
+                    DestroyRanges();
+                    //DrawRanges();
+                    DrawMoveRange(selected.gameObject.GetComponent<GridElementScript>());
+                }
+                else DestroyRanges();
+            }
         }
 	}
 
@@ -136,12 +169,13 @@ public class CursorScript : GridElementScript {
     {
         int usedMoves = 0;
 
-        for(int y = e.y - selected.range; y <= e.y + selected.range; y++){
+        for(int y = e.y - selected.attackr; y <= e.y + selected.attackr; y++){
             if (!grid.isLegalBoardLocation(0, y)) continue;
 
             usedMoves = Mathf.Abs(e.y - y);
 
-            for(int x = e.x - (selected.range - usedMoves); x <= e.x + (selected.range - usedMoves); x++){
+            for (int x = e.x - (selected.attackr - usedMoves); x <= e.x + (selected.attackr - usedMoves); x++)
+            {
                 if (!grid.isLegalBoardLocation(x, y)) continue;
 
                 highlightSquare.GetComponent<GridElementScript>().x = x;
