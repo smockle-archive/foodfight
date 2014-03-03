@@ -3,9 +3,11 @@
 * start with 3 cards, 6 max
 * used cards go to the bottom of the deck
 
+
 * each piece has stats listed on the class sheet
 * can be started anywhere in the "start zone" (behind the 6th row and column)
 * players take turns placing initial pieces
+
 
 * players move one unit per turn
 * units can be moved in any order
@@ -14,15 +16,18 @@
 * cards marked (equipment) can only be used on friendly minions, and a minion can only have one at the time.  (you can only remove an equiment by replacing it with another)
 * cards marked with (item) can only be used on frienly minions, and a minion can only have three at the time.  Items are one time use and will replace attacking for that turn.  (you can remove an item by playing another item on top of it)
 
+
 * units have a walking range which is the number of spaces they can move
 * units cannot walk through other units
 * units have an damage range from x to y.  you roll a die to determine what the actual damage is at the time of attack
 * damage is increased by one if a unit is hit from behind (on a side contolled by your opponent)
 
+
 http://www.mtgcardmaker.com/
 
-------generic cards:
 
+Generic Cards
+=============
 2- spicy (if this unit is attacked by a unit on an agacent square, this unit attacks after the first attack has rendered)
 2- quick service (change target units moved status to "not moved")
 2- reconstitute (unit gains 2 health when moved status changes to "moved")
@@ -43,9 +48,8 @@ http://www.mtgcardmaker.com/
 1- slippery oil (item - range 3) (remove one non-item card from a unit)
 1- spicy oil (item - range 1) (target unit gains: on this units next turn unit has +2 walking range and +2 attack, at the end of the units next turn it loses 5 health)
 
-
-------Asian Chef cards:
-
+Asian Chef Cards
+================
 2- KimChi Scent (target unit gains: when this unit attacks flip a coin, if heads this attack causes poison)
 2- Too Much Wasabi (target creature gets +4 attack but -8 health)
 8- Death Note (Sacrifice a unit, destroy target unit) (flavor text:  Nah guys, its a food!)
@@ -66,8 +70,8 @@ http://www.mtgcardmaker.com/
 2- Soy Sauce Packet (item - range 0) (units within 3 steps of the target are given +2 health increase)
 5- Fortune Cookie (item - range 3) (target gets: the next damage that would be dealt to this unit is negated (fortune cookies arent asian, so its a fake out. get it?))
 
-------Latin Chef cards:
-
+Latin Chef Cards
+================
 2- Skewer (deal 2 damage to target unit)
 4- Ceviche (deal 2 damage to all meat and veg/fruit units)
 6- Cumin (give all frindly units +2 damage on their next attack)
@@ -88,8 +92,8 @@ http://www.mtgcardmaker.com/
 4- Ghost Pepper (item - range 4) (deal 5 damage but give target unit spicy)
 3- Mortar and Pestle (item - range 3) (deal 3 damage, deal 5 if the target is a grain)
 
-------American Chef cards
-
+American Chef Cards
+===================
 5- Potluck Lunch (flip 5 coins, target unit gains 2 health per heads)
 4- 5 Sticks of Butter (target unit looses 2 movement range and 3 health)
 3- Pit Barbeque (target meat unit gains: this unit cannot be damaged by vegtable units)
@@ -109,3 +113,6 @@ http://www.mtgcardmaker.com/
 4- Black Pepper (item - range 3) (when the targeted unit attacks flip a coin, if heads the unit's attack misses and black pepper is removed)
 4- Gas Grill (item - range 3) (deals 3 damage, splash damage over 1 range)
 2- The Kitchen Sink (item - range 3) (deals 2 damage) (you threw everything else, why not this?)
+
+French Chef Cards
+=================
