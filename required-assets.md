@@ -8,9 +8,9 @@ Feel free to add to this list if you think of something new, but keep in mind th
 - ~~Stricken-through item~~: something complete. This status can be redacted, but the decision to do so should be taken seriously.
 
 A quick key:
-- Single asterisks around text italicizes.
-- Double asterisks around text emboldens.
-- Double tildes around text strikes it through.
+- * around text italicizes.
+- ** around text emboldens.
+- ~~ around text strikes it through.
 
 ## Visuals
 
