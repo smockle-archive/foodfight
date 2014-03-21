@@ -32,7 +32,7 @@ public class TurnManager : MonoBehaviour {
         
         foreach (UnitScript u in teamToCheck)
         {
-            if (u.canMove) return false;
+            if (u.canMove && u.health > 0) return false;
         }
         return true; 
     }

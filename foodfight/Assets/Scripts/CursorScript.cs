@@ -33,14 +33,17 @@ public class CursorScript : GridElementScript {
 
             clicked = null;
             attacked = null;
+			
 
             foreach (GridElementScript ge in moveRange)
             {
+
                 if (ge.x == this.x && ge.y == this.y)
                 {
                     clicked = ge;
                 }
             }
+
 
             foreach (GridElementScript ge in attackRange)
             {
