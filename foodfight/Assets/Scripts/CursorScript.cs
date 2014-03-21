@@ -37,13 +37,15 @@ public class CursorScript : GridElementScript {
 
             foreach (GridElementScript ge in moveRange)
             {
-
                 if (ge.x == this.x && ge.y == this.y)
                 {
                     clicked = ge;
                 }
             }
 
+//			if (selected != null && this.x == selected.x && this.y == selected.y) {
+//				clicked = 
+//			}
 
             foreach (GridElementScript ge in attackRange)
             {
@@ -151,7 +153,7 @@ public class CursorScript : GridElementScript {
                 skip = false;
                 foreach (GridElementScript ge in gridElements)
                 {
-                    if (!ge.CompareTag("Range") && ge.x == x && ge.y == y)
+                    if (!ge.CompareTag("Range") && ge.x == x && ge.y == y && !(e.y == y && e.x == x))
                     {
                         skip = true;
                     }
@@ -166,6 +168,9 @@ public class CursorScript : GridElementScript {
                 clone.transform.parent = GameObject.Find("MoveRange").gameObject.transform;
             }
         }
+		foreach (GridElementScript u in GameObject.Find("MoveRange").GetComponentsInChildren<GridElementScript>()) {
+			Debug.Log(u.x + ", " + u.y);
+		}
     }
 
     void DrawAttackRange(GridElementScript e)
