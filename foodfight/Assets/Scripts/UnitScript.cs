@@ -25,6 +25,8 @@ public class UnitScript : MonoBehaviour {
     public void Attack (UnitScript defender)
     {
         if(canAttack(defender)) defender.health -= this.attack;
+		Debug.Log (defender.health);
+		isGameOver ();
     }
     public void Move (int x, int y) //move to grid position (x,y)
     {
@@ -55,6 +57,34 @@ public class UnitScript : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+	bool isGameOver(){
+		bool playerWon = true;
+		bool playerLost = true;
+		UnitScript[] allUnits = GameObject.FindObjectsOfType<UnitScript>();
+		
+		foreach (UnitScript u in allUnits)
+		{
+			if(u.tag == "Unit - Player" && u.health > 0){
+				playerLost = false;
+			}
+			if(u.tag == "Unit - Enemy" && u.health > 0){
+				playerWon = false;
+			}
+		}
+		
+		if (playerWon) {
+			Application.LoadLevel ("menuScene");
+			Debug.Log ("Won");
+		}
+		
+		if (playerLost) {
+			
+			Application.LoadLevel ("menuScene");
+			Debug.Log("Lost");		
+		}
+		return (playerWon || playerLost);
+	}
 
     //void OnMouseUp()
     //{

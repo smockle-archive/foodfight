@@ -1,6 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UnitScript.cs">
+    <Files>
+      <File FileName="Assets\Scripts\TurnManager.cs" Line="63" Column="15" />
+      <File FileName="Assets\Scripts\UnitScript.cs" Line="29" Column="17" />
+      <File FileName="Assets\Scripts\TeamColorScript.cs" Line="6" Column="17" />
+      <File FileName="Assets\Scripts\GridElementScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Grid.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ExtensionMethods.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

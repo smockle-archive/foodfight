@@ -23,7 +23,9 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     public void Handle()
     {
+		isGameOver();
         if (isTurnOver()) nextTurn();
+
     }
 
     bool isTurnOver()
@@ -61,6 +63,10 @@ public class TurnManager : MonoBehaviour {
         else Debug.Log("ERROR: No instance of TeamColorScript could be found. Either it got dissociated from the Scripts object in a git push/pull/sync somehow, or someone deleted it. "
             + "It is also theoretically possible that someone added another instance of TeamColorScript, since this method looks for a single object.");
     }
+
+
+
+
 
     void nextRound()
     {
