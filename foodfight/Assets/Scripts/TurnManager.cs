@@ -23,9 +23,8 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     public void Handle()
     {
-		isGameOver();
+        if (isGameOver()) Application.LoadLevel("menuScene");
         if (isTurnOver()) nextTurn();
-
     }
 
     bool isTurnOver()
@@ -37,6 +36,29 @@ public class TurnManager : MonoBehaviour {
             if (u.canMove && u.health > 0) return false;
         }
         return true; 
+    }
+    bool isGameOver()
+    {
+        bool playerWon = true;
+        bool playerLost = true;
+        UnitScript[] allUnits = GameObject.FindObjectsOfType<UnitScript>();
+
+        foreach (UnitScript u in allUnits)
+        {
+            if (u.tag == "Unit - Player" && u.health > 0)
+            {
+                playerLost = false;
+            }
+            if (u.tag == "Unit - Enemy" && u.health > 0)
+            {
+                playerWon = false;
+            }
+        }
+
+        if (playerWon) Debug.Log("Won");
+        else if (playerLost) Debug.Log("Lost");
+     
+        return (playerWon || playerLost);
     }
 
     void nextTurn()

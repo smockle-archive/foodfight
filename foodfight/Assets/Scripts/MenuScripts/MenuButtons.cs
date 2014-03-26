@@ -13,7 +13,7 @@ public class MenuButtons : MonoBehaviour {
 		if (Input.GetMouseButtonUp (0)) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast(ray, out hit));
+            if (!Physics.Raycast(ray, out hit)) return;
 			if (hit.transform != null) {
 				Debug.Log("Hit " + hit.transform.gameObject.name);
 			}
