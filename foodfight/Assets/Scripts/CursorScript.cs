@@ -9,7 +9,6 @@ public class CursorScript : GridElementScript {
     public Color attackRangeColor;
 
     UnitScript selected;
-    bool existRangeObjects = false;
     Grid grid;
     GridElementScript[] moveRange;
     GridElementScript[] attackRange;
@@ -125,11 +124,11 @@ public class CursorScript : GridElementScript {
     }
 
     /// <summary>
+    /// <para>Depricated. Use DrawAttackRange() and DrawMoveRange() individually.</para>
     /// Draws the selected unit's move range, as well as attack range outside of that.
     /// </summary>
     void DrawRanges()
     {
-        existRangeObjects = true;
         GridElementScript g = selected.gameObject.GetComponent<GridElementScript>();
 
         DrawAttackRange(g);
@@ -200,7 +199,6 @@ public class CursorScript : GridElementScript {
     /// </summary>
     void DestroyRanges()
     {
-        existRangeObjects = false;
         foreach (var r in GameObject.FindGameObjectsWithTag("Range"))
         {
             Destroy(r);
