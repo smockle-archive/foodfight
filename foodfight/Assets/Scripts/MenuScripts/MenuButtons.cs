@@ -21,7 +21,7 @@ public class MenuButtons : MonoBehaviour {
 			   Application.Quit();
 			}
 			if(hit.transform.gameObject.name == "new"){
-				Application.LoadLevel ("testScene");
+				Application.LoadLevel (1);
 			}
 		}
 	}

@@ -12,19 +12,22 @@ public class UnitScript : MonoBehaviour {
     public int move;
     public int attackr; //attack range (move range not included. default is 1.)
 
+    public int crit; //always defaults to 0! only one class should use this stat!
+
     public UnitScript defender;
 
     public bool canMove = true;
 
     void Start()
     {
-        move = 2;
-        attackr = 1;
+        //move = 2;
+        //attackr = 1;
+        //crit = 0;
     }
 
     public void Attack (UnitScript defender)
     {
-        if(canAttack(defender)) defender.health -= this.attack;
+        if(canAttack(defender)) defender.health -= (Random.Range(1, 100) <= this.crit) ? this.attack * 2 : this.attack;
         Debug.Log(defender.health);
         GameObject.FindObjectOfType<TurnManager>().Handle();
     }
