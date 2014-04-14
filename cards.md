@@ -24,16 +24,16 @@ http://www.mtgcardmaker.com/
 
 Generic Cards
 =============
-2- spicy (if this unit is attacked by a unit on an agacent square, this unit attacks after the first attack has rendered)<br>
-2- quick service (change target units moved status to "not moved")<br>
-2- reconstitute (unit gains 2 health when moved status changes to "moved")<br>
+2- spicy (if this unit is attacked by a unit on an agacent square, this unit attacks after the first attack has rendered) - https://www.flickr.com/photos/jdhancock/3773786619/<br>
+2- quick service (change target units moved status to "not moved") - https://www.flickr.com/photos/whatsthatpicture/4804709087<br>
+2- reconstitute (unit gains 2 health when moved status changes to "moved") - https://www.flickr.com/photos/hobbit_71/5313699580<br>
 
-2- flying food (can walk through/over other units)<br>
-2- longarm of the slaw (give unit +1 attack range)<br>
-2- fast food (give unit +1 walking range)<br>
+2- flying food (can walk through/over other units) - https://www.flickr.com/photos/28581681@N04/4256458866<br>
+2- longarm of the slaw (give unit +1 attack range) - https://www.flickr.com/photos/hepp/5950941452<br>
+2- fast food (give unit +1 walking range) - https://www.flickr.com/photos/joo0ey/4933735272<br>
 
-3- malicious taste test (deal 5 damage to target unit)<br>
-2- slow (change target units status to "moved")<br>
+3- malicious taste test (deal 5 damage to target unit) - https://www.flickr.com/photos/nomadic_lass/5598218199<br>
+2- slow (change target units status to "moved") - https://www.flickr.com/photos/zivkovic/5850008238<br>
 2- poison (unit loses 2 health when moved status changes to "moved")<br>
 
 3- skewer smash (unit gains +4 attack range, but cant move and attack in the same turn)<br>
