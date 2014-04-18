@@ -18,8 +18,14 @@ public class UnitScript : MonoBehaviour {
 
     public bool canMove = true;
 
+	public GUIText healthBar;
+	public Vector3 offset = Vector3.up;    // Units in world space to offset; 1 unit above object by default
+	Camera cam;
+
+
     void Start()
     {
+		cam = Camera.main;
         //move = 2;
         //attackr = 1;
         //crit = 0;
@@ -59,7 +65,26 @@ public class UnitScript : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+
+		
+		GUI.color = Color.black;
+		healthBar.text = "Health: " + this.health;
+		healthBar.transform.position = cam.WorldToViewportPoint(this.transform.position + offset);
+
+
     }
+
+	void OnGUI(){	
+		//Debug.Log (this.transform.position.x);
+		//Debug.Log (this.transform.position.y);
+		//GUI.color = Color.black;
+		//GUIStyle firstStyle = new GUIStyle();
+		//firstStyle.padding = new RectOffset((int) this.transform.position.x, 0, (int) this.transform.position.y, 0);
+		//GUILayout.BeginHorizontal (firstStyle);
+		//GUILayout.Label("Health: " + this.health);		
+		//GUILayout.EndHorizontal();
+
+	}
 
     //void OnMouseUp()
     //{
