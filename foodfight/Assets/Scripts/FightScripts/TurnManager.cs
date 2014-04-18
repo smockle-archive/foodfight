@@ -8,6 +8,8 @@ public class TurnManager : MonoBehaviour {
 
     public Turn turn;
 
+	public TurnDisplayScript turnDisplayScript;
+
 	// Use this for initialization
 	void Start () {
         turn = Turn.PLAYER;
@@ -67,6 +69,7 @@ public class TurnManager : MonoBehaviour {
         Recolor();
         //swap turns
         turn = (turn == Turn.PLAYER) ? Turn.ENEMY : Turn.PLAYER;
+		turnDisplayScript.updateTurn(turn == Turn.PLAYER ? 0 : 1);
         if (turn == Turn.PLAYER) nextRound(); //this should always be true. if we have first changed turns, and now are on the (primary) player's turn again, then we have completed a round.
         //maybe do some graphical stuff here.
     }
